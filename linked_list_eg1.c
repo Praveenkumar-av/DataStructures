@@ -1,15 +1,16 @@
-// singly linked list in c - reading and printing from user
+// singly linked list in c - reading from user and printing by dynamically creating node
 
 #include<stdio.h>
 #include<stdlib.h>
 struct Node
 {
-	int n;
+	int a;
 	struct Node *next;
 }*head=NULL;
 
 struct Node *create();
 void addList(int);
+void display();
 
 void main()
 {
@@ -23,14 +24,7 @@ void main()
 		addList(num);
 	}
 	
-	// printing
-
-	struct Node *temp = head;
-	for(i=0;i<n;i++)
-	{
-		printf("\nElement %d :%d",i+1,temp->n);
-		temp = temp->next;
-	}
+	display();  // printing the elements
 }
 
 struct Node *create()
@@ -44,7 +38,7 @@ void addList(int num)
 	if(head==NULL)
 	{
 		head = create();
-		head->n = num;
+		head->a = num;
 		head->next = NULL;
 	}
 	else
@@ -55,7 +49,20 @@ void addList(int num)
 			temp = temp->next;
 		}
 		temp->next = create();
-		temp->next->n = num;
+		temp->next->a = num;
 		temp->next->next = NULL;
 	}
+}
+
+void display()
+{
+	// printing in the output console
+	struct Node *temp = head;
+	int i=1;
+	while(temp->next != NULL)
+	{
+		printf("\nElement %d :%d",i++,temp->a);
+		temp = temp->next;
+	}
+	printf("\nElement %d :%d",i,temp->a);
 }
