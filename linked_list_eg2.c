@@ -1,4 +1,4 @@
-// singly linked list in c - reading value from user, adding node at the middle, first and deleting and printing
+// singly linked list in c - reading value from user, adding node at the middle and first, deleting, inserting and printing
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -13,6 +13,8 @@ void addList(int);
 void display();
 void addFirst(int);
 void addMiddle(int);
+int insert(int,int);
+int length();
 void delete(int);
 
 void main()
@@ -43,11 +45,19 @@ void main()
     scanf("%d",&num);
     delete(num);
     display();
+    
+    int pos;
+    printf("\nEnter the position and number to add element :");
+    scanf("%d%d",&pos,&num);
+    insert(num,pos);
+    display();
 }
 
 struct Node *create()  // function to create node
 {
-	return (struct Node *)malloc(sizeof(struct Node));
+	struct Node *new = (struct Node *)malloc(sizeof(struct Node));
+	new->next = NULL;
+	return new;
 }
 
 void addList(int num)  // creates new node and adds it to the last
@@ -56,7 +66,6 @@ void addList(int num)  // creates new node and adds it to the last
 	{
 		head = create();
 		head->a = num;
-		head->next = NULL;
 	}
 	else
 	{
@@ -67,7 +76,6 @@ void addList(int num)  // creates new node and adds it to the last
 		}
 		temp->next = create();
 		temp->next->a = num;
-		temp->next->next = NULL;
 	}
 }
 
@@ -82,71 +90,131 @@ void addFirst(int num)  // creates the node and make it as the starting node
 
 void addMiddle(int num)  // create and add at the middle of the linked list
 {
-    int count = 1;
-    temp = head;
-    while(temp->next != NULL)
+    int n = length();
+    if(n == 0)
     {
-        count++;
-        temp = temp->next;
-    }
-    count/=2;
-    temp = head;
+    	printf("List is empty!\n");
+	}
+	else
+	{
+    	n /= 2;
+    	temp = head;
 
-    for(int i=1;i<count;i++)
-    {
-        temp = temp->next;
+		int i;
+    	for(i=1;i<n;i++)
+    	{
+    	    temp = temp->next;
+    	}
+    	struct Node *new;
+    	new = create();
+    	new->a = num;  // store the num in 'a' in new node
+    	new->next = temp->next;
+    	temp->next = new;
     }
-    struct Node *new;
-    new = create();
-    new->a = num;  // store the num in 'a' in new node
-    new->next = temp->next;
-    temp->next = new;
+}
+
+int insert(int num,int pos)
+{
+	int n = length();
+
+	if(pos>n || pos<1)
+	{
+		printf("Invalid!");
+		return 0;
+	}
+	if(pos == 1)
+	{
+		addFirst(num);
+	}
+	else
+	{
+		struct Node *new;
+		temp = head;
+		int i;
+		for(i=2;i<pos;i++)
+		{
+			temp = temp->next;
+		}
+		new->next = temp->next;
+		temp->next = new;
+		new->a = num;
+	}
 }
 
 void delete(int num)
 {
-    temp = head;  // stores the current node address
-    struct Node *temp2 = NULL;  // to store the previous node address
-    int flag = 0;  // to identify if num is found or not
-    if(temp->a == num)
-    {
-        head = head->next;
-        flag = 1;
+	if(head == NULL)
+	{
+		printf("List is empty!");
+	}
+	else
+	{
+	    temp = head;  // stores the current node address
+	    struct Node *temp2 = NULL;  // to store the previous node address
+	    int flag = 0;  // to identify if num is found or not
+    	if(temp->a == num)  // first element
+    	{
+    	    head = head->next;
+    	    flag = 1;
+    	}
+    	else
+    	{
+    	    while(temp->next != NULL)
+        	{
+        	    temp2 = temp;
+        	    temp = temp->next;
+        	    if(temp->a == num)
+        	    {
+            	    temp2->next = temp->next;
+               		flag = 1;
+                	break;
+            	}
+        	}
+    	}
+	    if(temp->a == num && flag == 0)  // last element
+    	{
+    	    temp2->next == NULL;
+    	    flag = 1;
+    	}
+    	if(flag == 0)
+        	printf("Element not found!");
+    	else
+        	printf("Element removed");
     }
-    else
-    {
-        while(temp->next != NULL)
-        {
-            temp2 = temp;
-            temp = temp->next;
-            if(temp->a == num)
-            {
-                temp2->next = temp->next;
-                flag = 1;
-                break;
-            }
-        }
-    }
-    if(temp->a == num || flag == 0)
-    {
-        temp2->next == NULL;
-        flag = 1;
-    }
-    if(flag == 0)
-        printf("Element not found!");
-    else
-        printf("Element removed");
+}
+
+int length()
+{
+	if(head == NULL)
+	{
+		return 0;  
+	}
+	// find the length of the Node
+	temp = head;
+	int count = 1;
+	while(temp->next != NULL)
+	{
+		count++;
+		temp = temp->next;
+	}
+	return count;
 }
 
 void display()	// printing in the output console
 {
-
-	temp = head;
-	int i=1;
-	while(temp->next != NULL)
+	if(head == NULL)
 	{
-		printf("\nElement %d :%d",i++,temp->a);
-		temp = temp->next;
+		printf("List is empty!\n");
 	}
-	printf("\nElement %d :%d",i,temp->a);
+	else
+	{
+		temp = head;
+		int i=1;
+		while(temp->next != NULL)
+		{
+			printf("\nElement %d :%d",i++,temp->a);
+			temp = temp->next;
+		}
+		printf("\nElement %d :%d\n",i,temp->a);
+	}
 }
