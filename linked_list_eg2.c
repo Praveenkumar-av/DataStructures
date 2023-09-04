@@ -13,7 +13,7 @@ void addList(int);
 void display();
 void addFirst(int);
 void addMiddle(int);
-int insert(int,int);
+void insert(int,int);
 int length();
 void delete(int);
 
@@ -113,22 +113,21 @@ void addMiddle(int num)  // create and add at the middle of the linked list
     }
 }
 
-int insert(int num,int pos)
+void insert(int num,int pos)
 {
 	int n = length();
 
 	if(pos>n || pos<1)
 	{
 		printf("Invalid!");
-		return 0;
 	}
-	if(pos == 1)
+	else if(pos == 1)
 	{
 		addFirst(num);
 	}
 	else
 	{
-		struct Node *new;
+		struct Node *new = create();
 		temp = head;
 		int i;
 		for(i=2;i<pos;i++)
@@ -191,8 +190,8 @@ int length()
 	}
 	// find the length of the Node
 	temp = head;
-	int count = 1;
-	while(temp->next != NULL)
+	int count = 0;
+	while(temp != NULL)
 	{
 		count++;
 		temp = temp->next;
@@ -210,11 +209,11 @@ void display()	// printing in the output console
 	{
 		temp = head;
 		int i=1;
-		while(temp->next != NULL)
+		while(temp != NULL)
 		{
 			printf("\nElement %d :%d",i++,temp->a);
 			temp = temp->next;
 		}
-		printf("\nElement %d :%d\n",i,temp->a);
+		printf("\n");
 	}
 }

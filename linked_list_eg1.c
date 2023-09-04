@@ -59,10 +59,9 @@ void display()
 	// printing in the output console
 	struct Node *temp = head;
 	int i=1;
-	while(temp->next != NULL)
+	while(temp != NULL)
 	{
 		printf("\nElement %d :%d",i++,temp->a);
 		temp = temp->next;
 	}
-	printf("\nElement %d :%d",i,temp->a);
 }

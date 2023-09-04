@@ -123,7 +123,7 @@ void insert(int num,int pos)
 	{
 		temp = head;
 		int i;
-		for(i=2;i<n;i++)
+		for(i=2;i<pos;i++)
 		{
 			temp = temp->next;
 		}
@@ -187,20 +187,19 @@ void delete(int num)
 			removeFirst();
 			flag = 1;
 		}
-		else 
+
+		temp = head->next;
+		while(temp->next != NULL)
 		{
-			temp = head->next;
-			while(temp->next != NULL)
+			if(temp->a == num)
 			{
-				if(temp->a == num)
-				{
-					temp->prev->next = temp->next;
-					temp->next->prev = temp->prev;
-					flag = 1;
-				}
-				temp = temp->next;
+				temp->prev->next = temp->next;
+				temp->next->prev = temp->prev;
+				flag = 1;
 			}
+			temp = temp->next;
 		}
+
 		if(temp->a == num)
 		{
 			removeLast();
@@ -220,8 +219,8 @@ int length()
 		return 0;
 	}
 	temp = head;
-	int count = 1;
-	while(temp->next != NULL)
+	int count = 0;
+	while(temp != NULL)
 	{
 		count++;
 		temp = temp->next;
@@ -240,22 +239,22 @@ void display()
 		// Forward direction
 		temp = head;
 		printf("list :\n");
-		while(temp->next != NULL)
+		while(temp != NULL)
 		{
 			printf("%d ",temp->a);
 			temp = temp->next;
 		}
-		printf("%d\n",temp->a);
+		printf("\n");
 	
 		// Reverse direction
 		temp = last;
 		printf("list reversed :\n");
-		while(temp->prev != NULL)
+		while(temp != NULL)
 		{
 			printf("%d ",temp->a);
 			temp = temp->prev;
 		}
-		printf("%d\n\n",temp->a);
+		printf("\n\n");
 	}
 }
 
