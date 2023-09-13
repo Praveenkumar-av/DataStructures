@@ -12,13 +12,16 @@ struct Node
 struct Node *create();
 void addList(int);
 void addFirst(int);
+void insert(int,int);
 void removeFirst();
 void removeLast();
+void delete(int);
+int length();
 void display();
 
 void main()
 {
-    int n, i, num;
+    int n, i, num, pos;
     printf("Enter the no. of elements :");
     scanf("%d",&n);
     printf("Enter the elements :");
@@ -40,6 +43,16 @@ void main()
 
     removeLast();
     printf("Last element removed\n");
+    display();
+
+    printf("Enter position and number to add :");
+    scanf("%d%d",&pos,&num);
+    insert(num,pos);
+    display();
+
+    printf("Enter an element to delete :");
+    scanf("%d",&num);
+    delete(num);
     display();
 }
 
@@ -92,6 +105,39 @@ void addFirst(int num)
     }
 }
 
+void insert(int num,int pos)
+{
+	int n = length();
+	if(n == 0)
+	{
+		printf("List empty!");
+	}
+	else if(pos>n || pos<1)
+	{
+		printf("Invalid");
+	}
+	else if(pos == 1)
+	{
+		addFirst(num);
+	}
+	else
+	{
+		temp = head;
+		int i;
+		for(i=2;i<pos;i++)
+		{
+			temp = temp->next;
+		}
+		struct Node *new;
+		new = create();
+		new->next = temp->next;
+		temp->next->prev = new;
+		temp->next = new;
+		new->prev = temp;
+		new->a = num;
+	}
+}
+
 void removeFirst()
 {
     if(head == NULL)
@@ -123,6 +169,62 @@ void removeLast()
         last = last->prev;
         head->prev = last;
         last->next = head;
+    }
+}
+
+void delete(int num)
+{
+	if(head == NULL)
+	{
+		printf("List empty!\n");
+	}
+	else
+	{
+		int flag = 0;
+		if(head->a == num)
+		{
+			removeFirst();
+			flag = 1;
+		}
+
+		temp = head->next;
+		while(temp->next != head)
+		{
+			if(temp->a == num)
+			{
+				temp->prev->next = temp->next;
+				temp->next->prev = temp->prev;
+				flag = 1;
+			}
+			temp = temp->next;
+		}
+
+		if(temp->a == num)
+		{
+			removeLast();
+			flag = 1;
+		}
+		if(flag == 0)
+			printf("Element not found\n");
+		else
+			printf("Element removed\n");
+	}
+}
+
+int length()
+{
+    if(head == NULL)
+        return 0;
+    else
+    {
+        int count = 1;
+        temp = head;
+        while(temp->next != head)
+        {
+            count++;
+            temp = temp->next;
+        }
+        return count;
     }
 }
 
