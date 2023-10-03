@@ -1,7 +1,9 @@
-// singly linked list in c - reading value from user, adding node at the middle and first, deleting, inserting and printing
+// singly linked list in C - reading value from user, adding node at the middle and first, 
+// deleting, inserting and printing
 
 #include<stdio.h>
 #include<stdlib.h>
+
 struct Node
 {
 	int a;
@@ -97,7 +99,7 @@ void addMiddle(int num)  // create and add at the middle of the linked list
 	}
 	else
 	{
-    	n /= 2;
+    	n /= 2;  // middle of the node
     	temp = head;
 
 		int i;
