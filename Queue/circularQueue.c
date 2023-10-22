@@ -24,38 +24,33 @@ void main()
 				printf("Enter the element to enqueue :");
 				scanf("%d",&num);
 				enQueue(num);
-                n = size();
-                printf("Size :%d\n",n);
 				break;
 
 			case 2:
 				num = deQueue();
 				if(num != '\0')
                     printf("%d\n",num);
-                n = size();
-                printf("Size :%d\n",n);
 				break;
 
             case 3:
                 num = front_element();
                 if(num != '\0')
                     printf("%d\n",num);
-                n = size();
-                printf("Size :%d\n",n);
                 break;
 
             case 4:
                 num = rear_element();
                 if(num != '\0')
                     printf("%d\n",num);
-                n = size();
-                printf("Size :%d\n",n);
                 break;
 
 			default :
 				if(choice != 0)
 					printf("Invalid choice!\n");
 		}
+        n = size();
+        printf("Size :%d\n",n);
+        printf("--------------------------\n");
 	}while(choice != 0);
 }
 
@@ -67,7 +62,7 @@ void enQueue(int num)
         rear++;
         arr[front] = num;
     }
-    else if(front == (rear+1)%n)
+    else if((rear+1)%n == front)
     {
         printf("Queue full!\n");
     }
