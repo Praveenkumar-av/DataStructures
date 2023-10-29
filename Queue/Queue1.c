@@ -76,9 +76,14 @@ void enqueue(int num)
 void dequeue()
 {
 	// fetch element in the front and delete
-	if(front > rear || front == -1)
+	if(front == -1 && rear == -1)
 	{
 		printf("Queue empty!\n");
+	}
+	else if(front == rear)
+	{
+		printf("%d",arr[front]);
+		front = rear = -1;
 	}
 	else
 	{
