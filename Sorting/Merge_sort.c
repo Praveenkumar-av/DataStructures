@@ -31,34 +31,25 @@ void mergeSort(int *arr,int *temp,int l,int r)
     }
 }
 
-void merge(int *arr,int *temp,int l,int mid,int h)
+void merge(int *arr,int *temp,int l,int mid,int r)
 {
     int i=l-1, j=mid, k=0;
-    while(i<mid && j<h)
-    {
+    while(i<mid && j<r)
         if(arr[i] < arr[j])
-            temp[k] = arr[i++];
+            temp[k++] = arr[i++];
         else
-            temp[k] = arr[j++];
-
-        k++;
-    }
+            temp[k++] = arr[j++];
 
     while(i<mid)
-    {
         temp[k++] = arr[i++];
-    }
 
-    while(j<h)
-    {
+    while(j<r)
         temp[k++] = arr[j++];
-    }
 
     // copy the result to original array in the position
     k = 0;
     i = l-1;
-    while(i<h)
-    {
+
+    while(i<r)
         arr[i++] = temp[k++];
-    }
 }
