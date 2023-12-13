@@ -1,4 +1,4 @@
-// Depth first search implementation using recursion for graphs
+// Depth first search traversal using recursion for graphs
 
 #include<stdio.h>
 #include<stdlib.h>
