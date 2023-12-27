@@ -5,16 +5,17 @@
 
 void dfs(int **adj,int n,int *visited,int s)
 {
-    if(visited[s] == 0){
-    printf("%d ",s);
-    visited[s] = 1;
-    for(int i=0;i<n;i++)
+    if(visited[s] == 0)
     {
-        if(adj[s][i] == 1 && visited[i] == 0)
+        printf("%d ",s);
+        visited[s] = 1;
+        for(int i=0;i<n;i++)
         {
-            dfs(adj,n,visited,i);
+            if(adj[s][i] == 1 && visited[i] == 0)
+            {
+                dfs(adj,n,visited,i);
+            }
         }
-    }
     }
 }
 

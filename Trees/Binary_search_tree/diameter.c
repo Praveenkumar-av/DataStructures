@@ -1,4 +1,4 @@
-// Level order traversal of a tree using Queue with printing the levels
+// Diameter of a binary search tree
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -7,22 +7,23 @@ struct Node
 {
     int data;
     struct Node *left, *right;
-}*root = NULL;
+} *root = NULL;
 
+int diameter(struct Node *);
+int height(struct Node *);
 struct Node *create(int);
 struct Node *insert(struct Node *,int);
-void levelOrder(struct Node *);
 void enqueue(struct Node *);
 struct Node *dequeue();
 int isQueueEmpty();
 
-struct Node *q[50];
-int front = -1, rear = -1, n = 50;
+int front = -1, rear = -1, n=100;
+struct Node *q[100];
 
 void main()
 {
-    int num, i, n;
-    printf("Enter the no. of values :");
+    int n, num, i, d=0;
+    printf("Enter the no. of elements :");
     scanf("%d",&n);
     printf("Enter the elements :");
     for(i=0;i<n;i++)
@@ -31,63 +32,81 @@ void main()
         root = insert(root,num);
     }
 
-    printf("Level order traversal :");
-    levelOrder(root);
+    d = diameter(root);
+    printf("diameter :%d",d);
 }
 
-struct Node *create(int value)
+int diameter(struct Node *root)
 {
-    struct Node *n = (struct Node *)malloc(sizeof(struct Node));
-    n->data = value;
-    n->left = NULL;
-    n->right = NULL;
-    return n;
+    int hl, hr;
+    hl = height(root->left);
+    printf("Height of left sub tree :%d\n",hl);
+
+    hr = height(root->right);
+    printf("Height of right sub tree :%d\n",hr);
+    
+    return hl + hr + 1;
 }
 
-void levelOrder(struct Node *temp)
+int height(struct Node *temp)
 {
     if(temp == NULL)
-        return;
-
+        return 0;
+    
     enqueue(temp);
     enqueue(NULL);
-    int i=0;
-    printf("Level 0 :");
+    int count = 1;
+
     while(!isQueueEmpty())
     {
         temp = dequeue();
         if(temp == NULL)
         {
             if(isQueueEmpty())
-                return;
+            {
+                return count;
+            }
+
             enqueue(NULL);
-            i++;
-            printf("\nLevel %d :",i);
+            count++;
         }
         else
         {
-            printf("%d ",temp->data);
             if(temp->left != NULL)
                 enqueue(temp->left);
             if(temp->right != NULL)
                 enqueue(temp->right);
         }
-    }
+    }    
 }
 
-struct Node *insert(struct Node *temp,int value)
+struct Node *create(int val)
+{
+    struct Node *n = (struct Node *)malloc(sizeof(struct Node));
+    n->data = val;
+    n->left = NULL;
+    n->right = NULL;
+    return n;
+}
+
+struct Node *insert(struct Node *temp, int val)
 {
     if(temp == NULL)
-        return create(value);
+    {
+        return create(val);
+    }
     else
     {
-        if(value < temp->data)
-            temp->left = insert(temp->left,value);
+        if(val < temp->data)
+        {
+            temp->left = insert(temp->left, val);
+        }
         else
-            temp->right = insert(temp->right,value);
-
-        return temp;
+        {
+            temp->right = insert(temp->right,val);
+        }
     }
+    return temp;
 }
 
 void enqueue(struct Node *temp)
