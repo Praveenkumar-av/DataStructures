@@ -25,10 +25,10 @@ void main()
 
 void shortPath(int **adj,int n)
 {
-	int mat1[n][n], mat2[n][n];
+	int mat1[n][n];
 	int i, j, k;
 
-	// copy adj matrix to mat1
+	// copy adj to mat1
 	for(i=0;i<n;i++)
 		for(j=0;j<n;j++)
 			mat1[i][j] = adj[i][j];
@@ -40,21 +40,11 @@ void shortPath(int **adj,int n)
 		{
 			for(j=0;j<n;j++)
 			{
-				if(i == j || i == k || j == k)
-					mat2[i][j] = mat1[i][j];
-				else 
-				{	
-					if(mat1[i][j] > (mat1[i][k] + mat1[k][j]))
-						mat2[i][j] = mat1[i][k] + mat1[k][j];
-					else 
-						mat2[i][j] = mat1[i][j];
-				}
+				if(i != j && i != k && j != k)
+					if(mat1[i][k]+mat1[k][j] < mat1[i][j])
+						mat1[i][j] = mat1[i][k]+mat1[k][j];
 			}
 		}
-		// copy mat2 to mat1
-		for(i=0;i<n;i++)
-			for(j=0;j<n;j++)
-				mat1[i][j] = mat2[i][j];
 	}
 
 	// print the shortest path matrix 

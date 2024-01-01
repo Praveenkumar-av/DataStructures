@@ -30,12 +30,9 @@ void shell_sort(int *arr,int n)
     {
         for(j=gap;j<n;j++)
         {
-            for(i = j-gap;i >= 0;i-=gap)
+            for(i = j-gap; arr[i+gap] < arr[i] && i >= 0;i-=gap)
             {
-                if(arr[i+gap] < arr[i])
-                    swap(arr,i,i+gap);
-                else 
-                    break;
+                swap(arr,i,i+gap);
             }
         }
     }
