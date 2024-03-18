@@ -1,3 +1,7 @@
 *.exe
 .vscode
 *.o
+*.class
+DataStructures.iml
+.idea
+out
