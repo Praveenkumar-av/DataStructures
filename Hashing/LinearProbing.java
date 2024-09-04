@@ -32,6 +32,43 @@ class HashingLinearProbing {
         return false;
     }
 
+    boolean delete(int key)
+    {
+        int index = hash(key);
+
+        if(table[index] == 0)
+            return false;
+        else 
+        {
+            int i;
+            // find the location of key
+            for(i=0; table[(index+i)%SIZE] != 0 && i < SIZE ;i++)
+            {
+                if(table[(index+i)%SIZE] == key)
+                {
+                    break;
+                }
+            }
+            
+            if(i == SIZE)  // key not found
+                return false;
+
+            index = (index+i)%SIZE;  // found index
+            table[index] = 0;       // delete the key
+            int j, data;
+            // rehash the table
+            for(i=1; table[(index+i)%SIZE] != 0 && i < SIZE ;i++)
+            {
+                j = (index+i)%SIZE;
+                
+                data = table[j];
+                table[j] = 0;
+                insert(data);
+            }
+            return true;
+        }
+    }
+
     int hash(int key) {
         return (key % SIZE);
     }
@@ -46,6 +83,15 @@ class HashingLinearProbing {
             return (i + index) % SIZE;
         else
             return -1;
+    }
+
+    void display()
+    {
+        int i;
+        for(i=0;i<SIZE;i++)
+        {
+            System.out.println(i+" "+table[i]);
+        }
     }
 }
 
@@ -66,6 +112,8 @@ class LinearProbing
             data = scan.nextInt();
             ht.insert(data);
         }
+        
+        ht.display();
 
         System.out.println("Enter the element to search :");
         data = scan.nextInt();
@@ -74,6 +122,15 @@ class LinearProbing
             System.out.println("Element found");
         else 
             System.out.println("Not found");
-    
+
+        System.out.println("Enter the element to delete :");
+        data = scan.nextInt();
+        result = ht.delete(data);
+        if(result)
+            System.out.println("Element deleted successfully");
+        else 
+            System.out.println("Element Not found");
+
+        ht.display();
     }
 }

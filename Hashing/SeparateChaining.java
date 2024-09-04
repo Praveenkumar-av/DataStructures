@@ -17,8 +17,13 @@ public class SeparateChaining {
             data = scan.nextInt();
             hsc.insert(data);
         }
+
+        System.out.print("Enter a key to search :");
+        data = scan.nextInt();
+        hsc.search(data);
     }
 }
+
 class HashingSeparateChaining
 {
     final int SIZE = 10;
@@ -37,6 +42,21 @@ class HashingSeparateChaining
             llarr[index] = new SortedLinkedList();
         }
         llarr[index].sortedAddList(key);
+    }
+
+    void search(int key)
+    {
+        int index = hash(key);
+        boolean result;
+        if(llarr[index] == null)
+            result = false;
+        else
+            result = llarr[index].search(key);
+
+        if(result)
+            System.out.println("Element found");
+        else 
+            System.out.println("Element not found");
     }
 
     int hash(int key)
@@ -90,6 +110,21 @@ class SortedLinkedList
                 current.next = newNode;
             }
         }
+    }
+
+    boolean search(int key)
+    {
+        Node current = head;
+
+        while(current != null && current.data <= key)
+        {
+            if(current.data == key)
+                return true;
+
+            current = current.next;
+        }
+
+        return false;
     }
 
     void display()
