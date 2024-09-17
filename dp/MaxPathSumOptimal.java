@@ -1,3 +1,8 @@
+// Program to find the maximum sum in a n*n matrix if the possible moves are 
+// mat[r+1] [c]
+// mat[r+1] [c-1]
+// mat [r+1] [c+1]
+
 import java.util.Arrays;
 class MaxPathSumOptimal{
     static int maximumPath(int N, int Matrix[][]) {

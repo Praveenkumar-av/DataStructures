@@ -1,9 +1,11 @@
-import java.util.Arrays;
+// ANinja has an ‘N’ Day training schedule. He has to perform one of these three activities 
+// (Running, Fighting Practice, or Learning New Moves) each day. There are merit points associated 
+// with performing an activity each day. The same activity can’t be performed on two consecutive days.
+// We need to find the maximum merit points the ninja can attain in N Days.
 
+import java.util.Arrays;
 class NinjaTrainingMem{
-    static int count = 0;
     static int maxTraining(int[][] points, int day, int last, int[][] dp){
-        count++;
         if(day == 0){
             int max = 0;
             for(int i=0; i<3; i++)
@@ -24,10 +26,7 @@ class NinjaTrainingMem{
                 max = Math.max(point, max);
             }
         }
-        // if(last != -1)
-            return dp[day][last] = max;
-        
-        // return max;
+        return dp[day][last] = max;
     }   
 
     public static void main(String[] args){
@@ -43,6 +42,5 @@ class NinjaTrainingMem{
             Arrays.fill(dp[i], -1);
 
         System.out.println("maximum points :"+maxTraining(points, n-1, 0, dp));
-        System.out.println("No. of steps :"+count);
     }
 }

@@ -1,5 +1,9 @@
+// ANinja has an ‘N’ Day training schedule. He has to perform one of these three activities 
+// (Running, Fighting Practice, or Learning New Moves) each day. There are merit points associated 
+// with performing an activity each day. The same activity can’t be performed on two consecutive days.
+// We need to find the maximum merit points the ninja can attain in N Days.
+
 class NinjaTrainingOptimal{
-    static int count = 0;
     static int maxTraining(int[][] points){
         int[] prevDay = new int[3];
 
@@ -14,12 +18,10 @@ class NinjaTrainingOptimal{
             for(int last = 0; last<3; last++){
                 // find the maximum task in the previous day without last
                 int max = 0;
-                for(int task = 0; task<3; task++){
-                    count++;  // to count the no. of steps taken
-                    if(task != last){
+                for(int task = 0; task<3; task++)
+                    if(task != last)
                         max = Math.max(max, prevDay[task]);
-                    }
-                }
+                
                 // assign the maximum task to the temp array
                 temp[last] = points[day][last]+max;
             }
@@ -38,7 +40,6 @@ class NinjaTrainingOptimal{
             for(int last = 0; last<3; last++){
                 temp[last] = 0;
                 for(int task=0; task<3; task++){
-                    count++;
                     if(task != last){
                         temp[last] = Math.max(temp[last], points[day][task]+prevDay[task]);
                     }
@@ -63,6 +64,5 @@ class NinjaTrainingOptimal{
         int n = points.length;
 
         System.out.println("max points :"+maxTraining(points));
-        System.out.println("No. of steps :"+count);
     }
 }
