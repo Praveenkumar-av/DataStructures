@@ -1,3 +1,5 @@
+// knapsack problem Optimal algorithm
+
 class KnapSackOptimal {
     static int knapSack(int W, int[] wt, int[] val){
         int[] dp = new int[W+1];

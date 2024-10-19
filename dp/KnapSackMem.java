@@ -1,4 +1,4 @@
-// Knapsack problem in java using recursion
+// Knapsack problem in java using recursion with memoization
 
 import java.util.Arrays;
 
