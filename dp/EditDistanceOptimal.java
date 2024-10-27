@@ -1,4 +1,4 @@
-// Edit distance problem using resursion
+// Edit distance problem using Tabulation
 // Given two strings str1 and str2. Return the minimum number of operations required to convert str1 to str2.
 // The possible operations are permitted:
 //     1.Insert a character at any position of the string.
