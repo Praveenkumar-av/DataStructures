@@ -22,7 +22,7 @@ class WildCardMem {
             return dp[i][j] = f(s1, s2, i - 1, j - 1, dp);
 
         if (s1.charAt(i-1) == '*') 
-            return dp[i][j] = f(s1, s2, i - 1, j, dp) + f(s1, s2, i - 1, j - 1, dp) + f(s1, s2, i, j - 1, dp);
+            return dp[i][j] = f(s1, s2, i - 1, j, dp) + f(s1, s2, i, j - 1, dp);
 
         return 0;
     }
@@ -64,7 +64,7 @@ class WildCardMem {
         }
 
         if (s1.charAt(i) == '*') {
-            return dp[i][j] = f(s1, s2, i - 1, j, dp) + f(s1, s2, i - 1, j - 1, dp) + f(s1, s2, i, j - 1, dp);
+            return dp[i][j] = f(s1, s2, i - 1, j, dp) + f(s1, s2, i, j - 1, dp);
         }
 
         return 0;

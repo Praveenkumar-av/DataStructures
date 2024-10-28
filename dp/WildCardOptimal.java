@@ -20,7 +20,7 @@ class WildCardOptimal {
                     dp[i][j] = dp[i - 1][j - 1];
                 }
                 else if (s1.charAt(i - 1) == '*') {
-                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - 1] || dp[i][j - 1];
+                    dp[i][j] = dp[i - 1][j] || dp[i][j - 1];
                 }
                 else
                     dp[i][j] = false;
@@ -48,7 +48,7 @@ class WildCardOptimal {
                     cur[j] = prev[j - 1];
                 }
                 else if (s1.charAt(i - 1) == '*') {
-                    cur[j] = prev[j] || prev[j - 1] || cur[j - 1];
+                    cur[j] = prev[j] || cur[j - 1];
                 }
                 else
                     cur[j] = false;

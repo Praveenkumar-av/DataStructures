@@ -15,7 +15,7 @@ class WildCard {
         }
 
         if (s1.charAt(i) == '*') {
-            return f(s1, s2, i - 1, j) || f(s1, s2, i - 1, j - 1) || f(s1, s2, i, j - 1);
+            return f(s1, s2, i - 1, j) || f(s1, s2, i, j - 1);
         }
 
         return false;
