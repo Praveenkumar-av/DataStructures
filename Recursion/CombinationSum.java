@@ -17,14 +17,14 @@ class CombinationSum {
 
         temp.add(arr.get(ind));
         findComb(sum - arr.get(ind), temp, arr, ind, result);
-        temp.remove(arr.get(ind));
+        temp.remove(temp.size()-1);
 
         findComb(sum, temp, arr, ind - 1, result);
     }
 
     static ArrayList<ArrayList<Integer>> combinationSum(ArrayList<Integer> A, int B) {
         // sort the arrayList in descending order
-        Collections.sort(A, (o1, o2) -> o2 - o1);
+        Collections.sort(A, Comparator.reverseOrder());
         // remove duplicates
         ArrayList<Integer> arr = new ArrayList<>();
         int n = A.size();
