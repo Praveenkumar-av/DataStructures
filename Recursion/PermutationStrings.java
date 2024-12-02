@@ -1,3 +1,5 @@
+import java.util.*;
+
 class PermuatationStrings {
     public List<String> find_permutation(String S) {
         List<String> l = new ArrayList<>();
